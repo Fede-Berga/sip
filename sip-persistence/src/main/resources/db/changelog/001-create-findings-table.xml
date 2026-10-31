@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001" author="sip">
+
+        <createTable tableName="findings">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="severity" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="correlation_rule_id" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="source_ip" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_payload" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detected_at" type="TIMESTAMPTZ">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="findings" indexName="idx_findings_severity">
+            <column name="severity"/>
+        </createIndex>
+
+        <createIndex tableName="findings" indexName="idx_findings_detected_at">
+            <column name="detected_at"/>
+        </createIndex>
+
+        <createIndex tableName="findings" indexName="idx_findings_status">
+            <column name="status"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>
